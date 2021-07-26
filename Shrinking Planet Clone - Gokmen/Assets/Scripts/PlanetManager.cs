@@ -7,11 +7,14 @@ public class PlanetManager : MonoBehaviour
     public static PlanetManager instance;
     public float gravity = -10f;
     private SphereCollider col;
+    public float shrinkSpeed = .01f;
+    private static Transform myTransform;
 
     void Awake() 
     {
         instance = this;
 		col = GetComponent<SphereCollider>();
+        myTransform = transform;
     }
 
     public void Attract (Rigidbody body)
@@ -44,6 +47,11 @@ public class PlanetManager : MonoBehaviour
 
     void Update()
     {
-        
+        transform.localScale *= 1f - shrinkSpeed * Time.deltaTime;
+    }
+
+    public float GetScale()
+    {
+        return this.transform.localScale.x;
     }
 }
